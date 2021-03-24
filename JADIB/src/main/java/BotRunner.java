@@ -35,7 +35,7 @@ public class BotRunner {
                 break;
             }
             case 4: {
-                api.updateActivity(ActivityType.PLAYING, "It's pronounced ja bid.");
+                api.updateActivity(ActivityType.PLAYING, "It's pronounced jay dib.");
             }
             }
             System.out.println("CurrStatus - " + choice);
