@@ -1,5 +1,5 @@
 
 
 public class Util {
-    public static String prefix = ">";
+    public static String prefix = "j-";
 }
