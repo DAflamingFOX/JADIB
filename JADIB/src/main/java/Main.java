@@ -2,9 +2,15 @@ import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
 
-public class BotRunner {
+import commandhandler.CommandBuilder;
+import commands.*;
+
+//import 
+
+public class Main {
 
     public static void main(String[] args) throws InterruptedException {
+        
         // JADIB in ASCII art, it looks wrong in code due to having to escape the \
         System.out.println("\n\n      ,--.-,  ,---.                   .=-.-.            ");
         System.out.println("     |==' -|.--.'  \\      _,..---._  /==/_ /  _..---.   ");
@@ -21,21 +27,30 @@ public class BotRunner {
 
         // LOGIN
         DiscordApi api = new DiscordApiBuilder().setToken(secret.getToken()).login().join();
-        api.updateActivity(ActivityType.PLAYING, "booting up...");
+        api.updateActivity(ActivityType.PLAYING, "Getting Coffee, brb"); // activity for waiting on setup
         System.out.println("Bot Online!");
 
-        // MESSAGE LISTENER
+        //COMMAND BUILDER
+        CommandBuilder builder = new CommandBuilder(Util.prefix, api);
+
+        //COMMANDS
+        builder.addCommand("ping", new Ping(), "Shows the current ping of the bot.", Util.prefix + "ping" );
+        builder.addCommand("help", new Help(), "the help command, displays all commands, or gives instructions on how to use a command.", (Util.prefix + "help [command_name]"));
+
+        //COMMAND BUILD
+        builder.build();
+
+        /*/ MESSAGE LISTENER /*
         api.addMessageCreateListener(event -> {
             // checks for prefix
             if (!event.getMessageContent().toLowerCase().startsWith(Util.prefix)
                     || event.getMessageAuthor().isBotUser()) {
                 return;
             } else if (event.getMessageContent().toLowerCase().startsWith(Util.prefix)) {
-                System.out.println("command || " + event.getMessageContent() + " || was requested"); // for debug rn
                 // passes command handler event
 
             }
-        });
+        }); */
 
         // STATUS LOOPER
         do {
@@ -57,7 +72,7 @@ public class BotRunner {
                 api.updateActivity(ActivityType.PLAYING, "It's pronounced jay dib.");
             }
             }
-            Thread.sleep(60000); // a minute
+            Thread.sleep(300000); // 5 minutes
         } while (true);
 
     }

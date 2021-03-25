@@ -1,13 +1,20 @@
-package Commands;
+package commands;
 
-import org.javacord.api.DiscordApi;
-import org.javacord.api.event.message.MessageCreateEvent;
+import java.util.ArrayList;
+import commandhandler.*;
+import org.javacord.api.entity.message.Message;
 
-public class Ping extends Command{
+public class Ping implements CommandExecutor {
 
-    public Ping(MessageCreateEvent event, DiscordApi api) {
-        super(event, api);
+    public void execute(CommandData data, ArrayList<Command> command) {
+        long ping1, ping2, ms;
+
+        ping1 = System.currentTimeMillis();
+        Message msg = data.getChannel().sendMessage("pinging...").join();
+        ping2 = System.currentTimeMillis();
+        ms = ping2 - ping1;
+        msg.edit("Current Ping: ~" + ms + "ms");
+
     }
-    
-    
+
 }
