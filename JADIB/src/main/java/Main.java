@@ -34,23 +34,12 @@ public class Main {
         CommandBuilder builder = new CommandBuilder(Util.prefix, api);
 
         //COMMANDS
-        builder.addCommand("ping", new Ping(), "Shows the current ping of the bot.", Util.prefix + "ping" );
         builder.addCommand("help", new Help(), "the help command, displays all commands, or gives instructions on how to use a command.", (Util.prefix + "help [command_name]"));
+        builder.addCommand("ping", new Ping(), "Shows the current ping of the bot.", Util.prefix + "ping" );
+        builder.addCommand("test", new Test(), "Dev only command, will be removed when bot goes final.", Util.prefix + "test [args]");
 
         //COMMAND BUILD
         builder.build();
-
-        /*/ MESSAGE LISTENER /*
-        api.addMessageCreateListener(event -> {
-            // checks for prefix
-            if (!event.getMessageContent().toLowerCase().startsWith(Util.prefix)
-                    || event.getMessageAuthor().isBotUser()) {
-                return;
-            } else if (event.getMessageContent().toLowerCase().startsWith(Util.prefix)) {
-                // passes command handler event
-
-            }
-        }); */
 
         // STATUS LOOPER
         do {
@@ -69,7 +58,7 @@ public class Main {
                 break;
             }
             case 4: {
-                api.updateActivity(ActivityType.PLAYING, "It's pronounced jay dib.");
+                api.updateActivity(ActivityType.PLAYING, "It's pronounced jah-dib.");
             }
             }
             Thread.sleep(300000); // 5 minutes
