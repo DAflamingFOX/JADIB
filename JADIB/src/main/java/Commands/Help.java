@@ -1,7 +1,6 @@
 package commands;
 
 import java.util.ArrayList;
-import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import commandhandler.*;
 import java.awt.Color;
