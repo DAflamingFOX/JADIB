@@ -17,8 +17,11 @@ public class Test implements CommandExecutor {
             data.getChannel().sendMessage("arg " + i + " = " + args.get(i));
         }
         // test for command
-        if (commands.contains(args.get(0))) {
-            data.getChannel().sendMessage(args.get(0) + "is a command");
+        for (int i = 0; i < commands.size(); i++) {
+            if (commands.get(i).getCommand().equals(args.get(0)))
+                data.getChannel().sendMessage(commands.get(i).getCommand() + " is a command that matches args 0");
+            else
+                data.getChannel().sendMessage(commands.get(i).getCommand() + " is a command that does not match args 0");
         }
     }
 }

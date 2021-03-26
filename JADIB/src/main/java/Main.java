@@ -34,7 +34,7 @@ public class Main {
         CommandBuilder builder = new CommandBuilder(Util.prefix, api);
 
         //COMMANDS
-        builder.addCommand("help", new Help(), "the help command, displays all commands, or gives instructions on how to use a command.", (Util.prefix + "help [command_name]"));
+        builder.addCommand("help", new Help(), "Displays all commands, or shows the usage of a command.", (Util.prefix + "help [command_name]"));
         builder.addCommand("ping", new Ping(), "Shows the current ping of the bot.", Util.prefix + "ping" );
         builder.addCommand("test", new Test(), "Dev only command, will be removed when bot goes final.", Util.prefix + "test [args]");
 
