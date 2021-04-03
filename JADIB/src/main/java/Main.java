@@ -10,7 +10,7 @@ import commands.*;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        
+
         // JADIB in ASCII art, it looks wrong in code due to having to escape the \
         System.out.println("\n\n      ,--.-,  ,---.                   .=-.-.            ");
         System.out.println("     |==' -|.--.'  \\      _,..---._  /==/_ /  _..---.   ");
@@ -30,15 +30,18 @@ public class Main {
         api.updateActivity(ActivityType.PLAYING, "Getting Coffee, brb"); // activity for waiting on setup
         System.out.println("Bot Online!");
 
-        //COMMAND BUILDER
-        CommandBuilder builder = new CommandBuilder(Util.prefix, api);
+        // COMMAND BUILDER
+        CommandBuilder builder = new CommandBuilder(Utillities.prefix, api);
 
-        //COMMANDS
-        builder.addCommand("help", new Help(), "Displays all commands, or shows the usage of a command.", (Util.prefix + "help [command_name]"));
-        builder.addCommand("ping", new Ping(), "Shows the current ping of the bot.", Util.prefix + "ping" );
-        builder.addCommand("links", new Links(), "show all the links for the bot.", Util.prefix + "links");
-        
-        //COMMAND BUILD
+        // COMMANDS
+        builder.addCommand("help", new Help(), "Displays all commands, or shows the usage of a command.",
+                (Utillities.prefix + "help [command_name]"));
+        builder.addCommand("ping", new Ping(), "Shows the current ping of the bot.", Utillities.prefix + "ping");
+        builder.addCommand("links", new Links(), "Show all the links for the bot.", Utillities.prefix + "links");
+        builder.addCommand("avatar", new Avatar(), "Show the avatar of a mentioned user.",
+                Utillities.prefix + "avatar [@user]");
+
+        // COMMAND BUILD
         builder.build();
 
         // STATUS LOOPER
