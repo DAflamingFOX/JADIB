@@ -3,6 +3,7 @@ package commandhandler;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CommandHandler implements MessageCreateListener {
@@ -30,7 +31,13 @@ public class CommandHandler implements MessageCreateListener {
 
         if (message.getCaller().equalsIgnoreCase(this.command.getCommand())) {
             if (event.getMessageContent().startsWith(message.getPrefix())) {
-                this.command.getExecutor().execute(data, this.commands);
+                // Had to add try/catch for the Quote command
+                try {
+                    this.command.getExecutor().execute(data, this.commands);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         }
 

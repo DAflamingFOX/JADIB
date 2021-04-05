@@ -4,6 +4,7 @@ import org.javacord.api.entity.activity.ActivityType;
 
 import commandhandler.CommandBuilder;
 import commands.*;
+import commands.util.JADIBUtil;
 
 //import 
 
@@ -31,15 +32,14 @@ public class Main {
         System.out.println("Bot Online!");
 
         // COMMAND BUILDER
-        CommandBuilder builder = new CommandBuilder(Utillities.prefix, api);
+        CommandBuilder builder = new CommandBuilder(JADIBUtil.prefix, api);
 
         // COMMANDS
-        builder.addCommand("help", new Help(), "Displays all commands, or shows the usage of a command.",
-                (Utillities.prefix + "help [command_name]"));
-        builder.addCommand("ping", new Ping(), "Shows the current ping of the bot.", Utillities.prefix + "ping");
-        builder.addCommand("links", new Links(), "Show all the links for the bot.", Utillities.prefix + "links");
-        builder.addCommand("avatar", new Avatar(), "Show the avatar of a mentioned user.",
-                Utillities.prefix + "avatar [@user]");
+        builder.addCommand("help", new Help(), "Displays all commands, or shows the usage of a command.", (JADIBUtil.prefix + "help [command_name]"));
+        builder.addCommand("ping", new Ping(), "Shows the current ping of the bot.", JADIBUtil.prefix + "ping");
+        builder.addCommand("links", new Links(), "Show all the links for the bot.", JADIBUtil.prefix + "links");
+        builder.addCommand("avatar", new Avatar(), "Show the avatar of a mentioned user.", JADIBUtil.prefix + "avatar [@user]");
+        builder.addCommand("quote", new Quote(), "provide an insperational quote.", JADIBUtil.prefix + "quote");
 
         // COMMAND BUILD
         builder.build();

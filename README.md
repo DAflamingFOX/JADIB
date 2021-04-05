@@ -1,3 +1,6 @@
+[![Discord Bots](https://top.gg/api/widget/status/798780702463885322.svg)](https://top.gg/bot/798780702463885322) [![Discord Bots](https://top.gg/api/widget/servers/798780702463885322.svg)](https://top.gg/bot/798780702463885322) [![Discord Bots](https://top.gg/api/widget/upvotes/798780702463885322.svg)](https://top.gg/bot/798780702463885322) [![Discord Bots](https://top.gg/api/widget/owner/798780702463885322.svg)](https://top.gg/bot/798780702463885322)
+
+
 # JADIB
 
 All the code for JADIB; a Java Discord Bot! Feel free to submit an issue or open a pull request!
@@ -18,8 +21,8 @@ limitations under the License.
 
 ### Contributions
 
-All merge requests are welcome!
+All merge requests are welcome; DM me on [discord](https://discord.gg/JFuBmKPAsU) if you would like to do so.
 
 ### Acknowledgements 
 
-Big thanks to Hopefuls for their command handler: https://github.com/Hopeful-Developers/Javacord-CommandHandler
+Big thanks to [Hopeful](https://github.com/Hopeful-Developers) for their [command handler](https://github.com/Hopeful-Developers/Javacord-CommandHandler).
