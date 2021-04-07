@@ -5,6 +5,7 @@ import org.javacord.api.listener.message.MessageCreateListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CommandHandler implements MessageCreateListener {
 
@@ -28,10 +29,17 @@ public class CommandHandler implements MessageCreateListener {
         this.event = event;
         CommandData data = new CommandData(event.getApi(), event, this, this.command);
         CommandMessage message = new CommandMessage(event.getMessageContent(), this.command.getPrefix());
+        boolean containsAlias = false;
 
-        if (message.getCaller().equalsIgnoreCase(this.command.getCommand())) {
+        // check for alias
+        if (this.command.getAliases() != null) {
+            if (Arrays.stream(this.command.getAliases()).anyMatch(s -> s.equalsIgnoreCase(message.getCaller()))) {
+                containsAlias = true;
+            }
+        }
+
+        if (message.getCaller().equalsIgnoreCase(this.command.getCommand()) || containsAlias) {
             if (event.getMessageContent().startsWith(message.getPrefix())) {
-                // Had to add try/catch for the Quote command
                 try {
                     this.command.getExecutor().execute(data, this.commands);
                 } catch (IOException e) {

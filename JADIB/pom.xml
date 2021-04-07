@@ -6,11 +6,11 @@
 
   <groupId>JADIB</groupId>
   <artifactId>JADIB</artifactId>
-  <version>0.1.0</version>
+  <version>1.0.0</version>
 
   <name>JADIB</name>
   <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <url>https://discord.gg/JFuBmKPAsU</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,9 +23,8 @@
     <dependency>
       <groupId>org.javacord</groupId>
       <artifactId>javacord</artifactId>
-      <version>3.1.2</version>
+      <version>3.3.0</version>
       <type>pom</type>
-
     </dependency>
 
   </dependencies>

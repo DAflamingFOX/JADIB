@@ -35,11 +35,12 @@ public class Main {
         CommandBuilder builder = new CommandBuilder(JADIBUtil.prefix, api);
 
         // COMMANDS
-        builder.addCommand("help", new Help(), "Displays all commands, or shows the usage of a command.", (JADIBUtil.prefix + "help [command_name]"));
-        builder.addCommand("ping", new Ping(), "Shows the current ping of the bot.", JADIBUtil.prefix + "ping");
-        builder.addCommand("links", new Links(), "Show all the links for the bot.", JADIBUtil.prefix + "links");
-        builder.addCommand("avatar", new Avatar(), "Show the avatar of a mentioned user.", JADIBUtil.prefix + "avatar [@user]");
-        builder.addCommand("quote", new Quote(), "provide an insperational quote.", JADIBUtil.prefix + "quote");
+        builder.addCommand("help", new String[] {"info"}, new Help(), "Displays all commands, or shows the usage of a command.", (JADIBUtil.prefix + "help [command_name]"));
+        builder.addCommand("ping", new String[] {"beep"}, new Ping(), "Shows the current ping of the bot.", JADIBUtil.prefix + "ping");
+        builder.addCommand("links", null, new Links(), "Show all the links for the bot.", JADIBUtil.prefix + "links");
+        builder.addCommand("avatar", new String[] {"pfp", "picture"}, new Avatar(), "Show the avatar of a mentioned user.", JADIBUtil.prefix + "avatar [@user]");
+        builder.addCommand("quote", new String[] {"insperation"}, new Quote(), "provide an insperational quote.", JADIBUtil.prefix + "quote");
+        builder.addCommand("blackjack", new String[] {"bj"}, new BlackJack(), "Play a game of blackjack against the bot.", JADIBUtil.prefix + "blackjack");
 
         // COMMAND BUILD
         builder.build();
@@ -62,6 +63,11 @@ public class Main {
             }
             case 4: {
                 api.updateActivity(ActivityType.PLAYING, "It's pronounced jah-dib.");
+                break;
+            }
+            case 5: {
+                api.updateActivity(ActivityType.WATCHING, "for " + JADIBUtil.prefix);
+                break;
             }
             }
             Thread.sleep(300000); // 5 minutes

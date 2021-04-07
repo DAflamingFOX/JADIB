@@ -3,7 +3,8 @@ package commands;
 import java.util.ArrayList;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import commandhandler.*;
-import java.awt.Color;
+import commands.util.JADIBUtil;
+
 
 public class Help implements CommandExecutor {
     // sets list as default
@@ -18,7 +19,7 @@ public class Help implements CommandExecutor {
         // embed
         EmbedBuilder embed = new EmbedBuilder();
         embed.setTitle("Help");
-        embed.setColor(new Color(111, 78, 55));
+        embed.setColor(JADIBUtil.color);
         embed.setThumbnail(
                 "https://cdn.discordapp.com/avatars/798780702463885322/7212eca92b0b89454ad9190a63f11e64.png?size=256");
         embed.setFooter("Made by DAflamingFOX#2140, with Javacord and <3",
