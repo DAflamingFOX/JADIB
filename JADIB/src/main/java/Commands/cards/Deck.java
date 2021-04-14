@@ -52,7 +52,7 @@ public class Deck {
     }
 
     public Card getTopCard() {
-        if (currCard > size) {
+        if (currCard >= size) {
             shuffle();
             currCard = 0;
         }

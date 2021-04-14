@@ -1,8 +1,10 @@
 package commands;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import org.javacord.api.DiscordApi;
+import org.javacord.api.entity.emoji.Emoji;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 
 import commandhandler.Command;
@@ -26,6 +28,13 @@ public class BlackJack implements CommandExecutor {
 
         // create the deck, dealer, and player
         Deck deck = new Deck(); // preshuffled in constructor
+        // finding wrong cards
+        for (int i = 0; i < 52; i++) {
+            Card c = deck.getTopCard();
+            System.out.println(c.toString());
+            data.getChannel().sendMessage(c.getEmote(data.getApi()) + c.toString()).join();
+
+        }
         ArrayList<Card> dealer = new ArrayList();
         ArrayList<Card> player = new ArrayList();
 
@@ -49,8 +58,26 @@ public class BlackJack implements CommandExecutor {
             dealerCards = getDealerCards(playerFinished, dealer, dealerCards, data.getApi());
             playerCards = getAllCards(playerCards, player, data.getApi());
 
-            // send embed and then react to it so the player can interact
+            // add the score/card fields
+            embed.addField(String.valueOf(dealerScore), dealerCards, true);
+            embed.addField(String.valueOf(playerScore), playerCards, true);
 
+            // send message and react with hit and stay emotes
+            try {
+                data.getChannel().getMessageById(messageId).get().edit(embed).join();
+            } catch (InterruptedException | ExecutionException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            try {
+                data.getChannel().getMessageById(messageId).get().addReactions(new String[] { "👊", "🛑" });
+            } catch (InterruptedException | ExecutionException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            // hardcoding finish for now
+            playerFinished = true;
         } while (!playerFinished);
 
         /**
@@ -66,9 +93,11 @@ public class BlackJack implements CommandExecutor {
 
     private String getAllCards(String playerCards, ArrayList<Card> player, DiscordApi api) {
         String temp = "";
+
         for (int i = 0; i < player.size(); i++) {
             temp += player.get(i).getEmote(api);
         }
+
         return temp;
     }
 
