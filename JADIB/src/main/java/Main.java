@@ -41,6 +41,7 @@ public class Main {
         builder.addCommand("avatar", new String[] {"pfp", "picture"}, new Avatar(), "Show the avatar of a mentioned user.", JADIBUtil.prefix + "avatar [@user]");
         builder.addCommand("quote", new String[] {"insperation"}, new Quote(), "provide an insperational quote.", JADIBUtil.prefix + "quote");
         builder.addCommand("blackjack", new String[] {"bj"}, new BlackJack(), "Play a game of blackjack against the bot.", JADIBUtil.prefix + "blackjack");
+        builder.addCommand("selftest", new String[] {"st"}, new SelfTest(), "Test if the bot is able to operate as inteneded.", JADIBUtil.prefix + "selftest");
 
         // COMMAND BUILD
         builder.build();

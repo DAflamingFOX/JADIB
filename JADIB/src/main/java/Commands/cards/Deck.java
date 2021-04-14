@@ -1,8 +1,11 @@
 package commands.cards;
 
+import java.util.ArrayList;
+
 public class Deck {
     private Card[] cards;
     private int size;
+    private int currCard = 0;
 
     public Deck() {
         cards = new Card[52];
@@ -18,6 +21,7 @@ public class Deck {
                 add(suit[i], rank[j], value[j]);
             }
         }
+        shuffle();
     }
 
     public String toString() {
@@ -34,9 +38,10 @@ public class Deck {
     }
 
     public void shuffle() {
+        currCard = 0;
         for (int i = 0; i < 100; i++) {
-            int firstCard = (int)(Math.random()*52);
-            int secondCard = (int)(Math.random()*52);
+            int firstCard = (int) (Math.random() * 52);
+            int secondCard = (int) (Math.random() * 52);
 
             Card temp;
 
@@ -44,5 +49,23 @@ public class Deck {
             cards[firstCard] = cards[secondCard];
             cards[secondCard] = temp;
         }
+    }
+
+    public Card getTopCard() {
+        if (currCard > size) {
+            shuffle();
+            currCard = 0;
+        }
+        Card tmp = cards[currCard];
+        currCard++;
+        return tmp;
+    }
+
+    public ArrayList<Card> getCards(int numCards) {
+        ArrayList<Card> cards = new ArrayList<Card>();
+        for (int i = 0; i < numCards; i++) {
+            cards.add(getTopCard());
+        }
+        return cards;
     }
 }

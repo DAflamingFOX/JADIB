@@ -27,6 +27,12 @@
       <type>pom</type>
     </dependency>
 
+  
+    <dependency>
+      <groupId>org.javacord</groupId>
+      <artifactId>javacord-api</artifactId>
+      <version>3.3.0</version>
+    </dependency>
   </dependencies>
 
   <build>
