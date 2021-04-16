@@ -1,11 +1,17 @@
 package commands;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.emoji.Emoji;
+import org.javacord.api.entity.message.Message;
+import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
+import org.javacord.api.entity.user.User;
+import org.javacord.api.event.message.MessageCreateEvent;
 
 import commandhandler.Command;
 import commandhandler.CommandData;
@@ -22,21 +28,15 @@ public class BlackJack implements CommandExecutor {
         // create embed for setting up, send embed, then remove the setting up field
         EmbedBuilder embed = JADIBUtil.createBasicEmbed("Blackjack", null, null, null);
         embed.addField("Setting Up:", "One moment...", false);
-        long messageId = data.getChannel().sendMessage(embed).join().getId();
+        Message message = data.getChannel().sendMessage(embed).join();
+
         // remove all fields so the setting up field isnt left in the embed
         embed.removeAllFields();
 
         // create the deck, dealer, and player
         Deck deck = new Deck(); // preshuffled in constructor
-        // finding wrong cards
-        for (int i = 0; i < 52; i++) {
-            Card c = deck.getTopCard();
-            System.out.println(c.toString());
-            data.getChannel().sendMessage(c.getEmote(data.getApi()) + c.toString()).join();
-
-        }
-        ArrayList<Card> dealer = new ArrayList();
-        ArrayList<Card> player = new ArrayList();
+        ArrayList<Card> dealer = new ArrayList<Card>();
+        ArrayList<Card> player = new ArrayList<Card>();
 
         // give dealer and player two cards for start of game
         dealer.addAll(deck.getCards(2));
@@ -50,6 +50,8 @@ public class BlackJack implements CommandExecutor {
         String dealerCards = "";
         String playerCards = "";
 
+        // time the loop starts, used for timeout
+        long startTime = System.currentTimeMillis();
         // only loop while the player isnt finished
         do {
             // set up the score and cards items so that the embed can be sent
@@ -63,21 +65,40 @@ public class BlackJack implements CommandExecutor {
             embed.addField(String.valueOf(playerScore), playerCards, true);
 
             // send message and react with hit and stay emotes
-            try {
-                data.getChannel().getMessageById(messageId).get().edit(embed).join();
-            } catch (InterruptedException | ExecutionException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            try {
-                data.getChannel().getMessageById(messageId).get().addReactions(new String[] { "👊", "🛑" });
-            } catch (InterruptedException | ExecutionException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
 
+                message.edit(embed).join();
+         
+                // adds the reactions
+                message.addReactions(new String[] { "👊", "🛑" }).join();
+
+                try {
+                    for (User user : message.getReactionByEmoji("👊").get().getUsers().get()) {
+                        if (user.getId() == data.getMessageAuthor().getId()) {
+                            // this code is activated if the user hits
+                            data.getChannel().sendMessage("you hit.");
+                        }
+                    }
+                    for (User user : message.getReactionByEmoji("🛑").get().getUsers().get()) {
+                        if (user.getId() == data.getMessageAuthor().getId()) {
+                            // this code is activated if the user stands
+                            data.getChannel().sendMessage("you stand.");
+                        }
+                    }
+                } catch (InterruptedException | ExecutionException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+               
+
+            
+            
             // hardcoding finish for now
-            playerFinished = true;
+            if (System.currentTimeMillis() - startTime > (15*1000) || playerFinished) {
+                playerFinished = true;
+                sendTimeoutMessage(data.getEvent());
+            } else {
+                playerFinished = false;
+            }
         } while (!playerFinished);
 
         /**
@@ -89,6 +110,10 @@ public class BlackJack implements CommandExecutor {
          * dealer score, repeat until stand or bust.
          */
 
+    }
+
+    private void sendTimeoutMessage(MessageCreateEvent messageCreateEvent) {
+        messageCreateEvent.getChannel().sendMessage("Sorry, you took to long!");
     }
 
     private String getAllCards(String playerCards, ArrayList<Card> player, DiscordApi api) {
