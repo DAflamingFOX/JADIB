@@ -1,14 +1,10 @@
 package commands;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.javacord.api.DiscordApi;
-import org.javacord.api.entity.emoji.Emoji;
 import org.javacord.api.entity.message.Message;
-import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -22,134 +18,227 @@ import commands.util.JADIBUtil;
 
 public class BlackJack implements CommandExecutor {
 
-    @Override
-    public void execute(CommandData data, ArrayList<Command> commands) {
+	@Override
+	public void execute(CommandData data, ArrayList<Command> commands) {
 
-        // create embed for setting up, send embed, then remove the setting up field
-        EmbedBuilder embed = JADIBUtil.createBasicEmbed("Blackjack", null, null, null);
-        embed.addField("Setting Up:", "One moment...", false);
-        Message message = data.getChannel().sendMessage(embed).join();
+		// create embed for setting up, send embed, then remove the setting up field
+		EmbedBuilder embed = JADIBUtil.createBasicEmbed("Blackjack", null, null, null);
+		embed.addField("Setting Up:", "One moment...", false);
+		Message message = data.getChannel().sendMessage(embed).join();
 
-        // remove all fields so the setting up field isnt left in the embed
-        embed.removeAllFields();
+		// remove all fields so the setting up field isnt left in the embed
+		embed.removeAllFields();
 
-        // create the deck, dealer, and player
-        Deck deck = new Deck(); // preshuffled in constructor
-        ArrayList<Card> dealer = new ArrayList<Card>();
-        ArrayList<Card> player = new ArrayList<Card>();
+		// create the deck, dealer, and player
+		Deck deck = new Deck(); // preshuffled in constructor
+		ArrayList<Card> dealer = new ArrayList<Card>();
+		ArrayList<Card> player = new ArrayList<Card>();
 
-        // give dealer and player two cards for start of game
-        dealer.addAll(deck.getCards(2));
-        player.addAll(deck.getCards(2));
+		// give dealer and player two cards for start of game
+		// dealer.addAll(deck.getCards(2));
+		// player.addAll(deck.getCards(2));
+		dealer.addAll(deck.getCards(2));
+		player.addAll(deck.getCards(2));
 
-        // attributes that will be used by the items in the loop to prevent having to do
-        // the same action twice
-        boolean playerFinished = false;
-        int dealerScore = 0;
-        int playerScore = 0;
-        String dealerCards = "";
-        String playerCards = "";
+		// attributes that will be used by the items in the loop to prevent having to do
+		// the same action twice
+		boolean playerFinished = false;
+		int dealerScore = 0;
+		int playerScore = 0;
+		String dealerCards = "";
+		String playerCards = "";
+		String playerChoice = "";
 
-        // time the loop starts, used for timeout
-        long startTime = System.currentTimeMillis();
-        // only loop while the player isnt finished
-        do {
-            // set up the score and cards items so that the embed can be sent
-            dealerScore = getScore(dealerScore, dealer);
-            playerScore = getScore(playerScore, player);
-            dealerCards = getDealerCards(playerFinished, dealer, dealerCards, data.getApi());
-            playerCards = getAllCards(playerCards, player, data.getApi());
+		playerScore = getScore(player);
+		dealerScore = getScore(dealer);
+		dealerCards = getDealerCards(playerFinished, dealer, data.getApi()); // dealer cards also sets the score (hiding
+																				// the score of one card)
+		playerCards = getAllCards(player, data.getApi());
 
-            // add the score/card fields
-            embed.addField(String.valueOf(dealerScore), dealerCards, true);
-            embed.addField(String.valueOf(playerScore), playerCards, true);
+		embed.addField(String.valueOf("Dealer: " + dealerScore), dealerCards, true);
+		embed.addField(String.valueOf("Player: " + playerScore), playerCards, true);
 
-            // send message and react with hit and stay emotes
+		message.edit(embed).join();
 
-                message.edit(embed).join();
-         
-                // adds the reactions
-                message.addReactions(new String[] { "👊", "🛑" }).join();
+		// time the loop starts, used for timeout
+		long startTime = System.currentTimeMillis();
+		// only loop while the player isnt finished
+		do {
+			embed.removeAllFields();
+			playerChoice = "";
 
-                try {
-                    for (User user : message.getReactionByEmoji("👊").get().getUsers().get()) {
-                        if (user.getId() == data.getMessageAuthor().getId()) {
-                            // this code is activated if the user hits
-                            data.getChannel().sendMessage("you hit.");
-                        }
-                    }
-                    for (User user : message.getReactionByEmoji("🛑").get().getUsers().get()) {
-                        if (user.getId() == data.getMessageAuthor().getId()) {
-                            // this code is activated if the user stands
-                            data.getChannel().sendMessage("you stand.");
-                        }
-                    }
-                } catch (InterruptedException | ExecutionException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-               
+			// adds the reactions
+			message.addReactions(new String[] { "👊", "🛑" }).join();
 
-            
-            
-            // hardcoding finish for now
-            if (System.currentTimeMillis() - startTime > (15*1000) || playerFinished) {
-                playerFinished = true;
-                sendTimeoutMessage(data.getEvent());
-            } else {
-                playerFinished = false;
-            }
-        } while (!playerFinished);
+			try {
+				for (User user : message.getReactionByEmoji("👊").get().getUsers().get()) {
+					if (user.getId() == data.getMessageAuthor().getId()) {
+						// this code is activated if the user hits
+						playerChoice = "hit";
+					}
+				}
+				for (User user : message.getReactionByEmoji("🛑").get().getUsers().get()) {
+					if (user.getId() == data.getMessageAuthor().getId()) {
+						// this code is activated if the user stands
+						playerChoice = "stand";
+					}
+				}
+			} catch (InterruptedException | ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-        /**
-         * setup deck send first set of cards dealer and player react with hit and stand
-         * emotes. wait for input or cancel if takes to long repeat hit and stand, or if
-         * bust
-         * 
-         * once stand let dealer play; 16 or below hits, 17 or above stands calculate
-         * dealer score, repeat until stand or bust.
-         */
+			switch (playerChoice) {
+			case "hit": {
+				message.removeAllReactions().join();
 
-    }
+				player.add(deck.getTopCard());
+				playerScore = getScore(player);
+				playerCards = getAllCards(player, data.getApi());
 
-    private void sendTimeoutMessage(MessageCreateEvent messageCreateEvent) {
-        messageCreateEvent.getChannel().sendMessage("Sorry, you took to long!");
-    }
+				embed.removeAllFields();
 
-    private String getAllCards(String playerCards, ArrayList<Card> player, DiscordApi api) {
-        String temp = "";
+				embed.addField(String.valueOf("Dealer :" + dealerScore), dealerCards, true);
+				embed.addField(String.valueOf("Player :" + playerScore), playerCards, true);
 
-        for (int i = 0; i < player.size(); i++) {
-            temp += player.get(i).getEmote(api);
-        }
+				if (playerScore > 21) {
+					message.edit(embed).join();
+				} else {
+					message.edit(embed).join();
+					break;
+				}
+			}
+			case "stand": {
+				playerFinished = true;
+				message.removeAllReactions();
+				break;
+			}
+			}
 
-        return temp;
-    }
+			if (System.currentTimeMillis() - startTime > (15 * 1000)) {
+				message.removeAllReactions();
+				sendTimeoutMessage(data.getEvent());
+				break;
+			} else if (playerFinished) {
+				// Im sure I can rewrite this but for now it fixes the issue of the following
+				// else setting true.
+			} else {
+				playerFinished = false;
+			}
+		} while (!playerFinished);
 
-    private String getDealerCards(boolean playerFinished, ArrayList<Card> player, String dealerCards, DiscordApi api) {
-        String temp = "";
+		// dealer logic
+		while (dealerScore < 16 && !(dealerScore > 21) && playerFinished) { // while below 16 and not above 21; also
+																			// only run if the player actually finish
+																			// their turn
+			dealer.addAll(deck.getCards(1));
+			dealerCards = getDealerCards(playerFinished, dealer, data.getApi());
+			dealerScore = getScore(dealer);
 
-        if (playerFinished) {
-            for (int i = 0; i < player.size(); i++) {
-                temp += player.get(i).getEmote(api);
-            }
-        } else {
-            for (int i = 0; i < player.size() - 1; i++) {
-                temp += player.get(i).getEmote(api);
-            }
-        }
+			embed.removeAllFields();
 
-        return temp;
-    }
+			embed.addField(String.valueOf(dealerScore), dealerCards, true);
+			embed.addField(String.valueOf(playerScore), playerCards, true);
+			message.edit(embed).join();
 
-    private int getScore(int score, ArrayList<Card> player) {
-        int temp = 0;
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		// if the dealer didnt need to add cards it never updated.
+		embed.removeAllFields();
+		dealerCards = getDealerCards(playerFinished, dealer, data.getApi());
+		embed.addField("Dealer: " + dealerScore, dealerCards, true);
+		embed.addField("Player: " + playerScore, playerCards, true);
+		message.edit(embed).join();
 
-        for (int i = 0; i < player.size(); i++) {
-            temp += player.get(i).getValue();
-        }
+		// calculate endgame winner/loser/co-loser
+		embed.addField(getOutcome(playerScore, dealerScore), "gg!", false);
+		message.edit(embed);
+		// if/when economy introduced, if win, take whatever bet was and if win, give x2
+		// if lose, do nothing take bet amount
+	}
 
-        return temp;
-    }
+	private String getOutcome(int player, int dealer) {
+		String temp = new String();
+		if (dealer > player && dealer <= 21 || player > 21) {
+			temp = "You lose!";
+		} else if (player > dealer && player <= 21 || dealer > 21) {
+			temp = "You win!";
+		} else if (dealer == player && !(dealer > 21 && player > 21)) {
+			temp = "We tie!";
+		}
+		if (dealer > 21 && player > 21) {
+			temp = "Nobody wins! Both busted!";
+		}
+		if (dealer > 21 && !temp.equals("Both bust!")) {
+			temp += " Dealer busted!";
+		}
+		if (player > 21 && !temp.equals("Both bust!")) {
+			temp += " You busted!";
+		}
+
+		return temp;
+	}
+
+	private void sendTimeoutMessage(MessageCreateEvent messageCreateEvent) {
+		messageCreateEvent.getChannel().sendMessage("Sorry, you took to long!");
+	}
+
+	private String getAllCards(ArrayList<Card> player, DiscordApi api) {
+		String temp = "";
+
+		for (int i = 0; i < player.size(); i++) {
+			temp += player.get(i).getEmote(api);
+		}
+
+		return temp;
+	}
+
+	private String getDealerCards(boolean playerFinished, ArrayList<Card> player, DiscordApi api) {
+		String temp = "";
+
+		if (playerFinished) {
+			for (int i = 0; i < player.size(); i++) {
+
+				temp += player.get(i).getEmote(api);
+			}
+		} else {
+			for (int i = 0; i < player.size() - 1; i++) {
+				temp += player.get(i).getEmote(api);
+			}
+			temp += ":flower_playing_cards:";
+		}
+
+		return temp;
+	}
+
+	private int getScore(ArrayList<Card> player) {
+		int temp = 0;
+		ArrayList<Integer> aceList = new ArrayList<Integer>();
+		for (int i = 0; i < player.size(); i++) {
+			if (player.get(i).getValue() == 1) {
+				aceList.add(i);
+			} else if (player.get(i).getValue() > 10) {
+				temp += 10;
+			} else {
+				temp += player.get(i).getValue();
+			}
+
+		}
+
+		for (int j = 0; j < aceList.size(); j++) {
+			if (temp < (10 - aceList.size() + 1)) {
+				temp += 11;
+			} else {
+				temp += 1;
+			}
+		}
+
+		return temp;
+	}
 
 }
