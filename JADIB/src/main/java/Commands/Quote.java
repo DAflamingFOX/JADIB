@@ -16,7 +16,6 @@ public class Quote implements CommandExecutor {
 
     @Override
     public void execute(CommandData data, ArrayList<Command> commands) throws IOException {
-        // TODO Auto-generated method stub
 
         String input = getTextOnPage();
 

@@ -22,7 +22,6 @@ public class SelfTest implements CommandExecutor {
         try {
             data.getChannel().getMessageById(msgId).get().edit("edit test:");
         } catch (InterruptedException | ExecutionException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         Collection<KnownCustomEmoji> jadibEmotes = data.getApi().getCustomEmojisByName("JADIB1Spades");
@@ -39,7 +38,6 @@ public class SelfTest implements CommandExecutor {
         try {
             data.getChannel().getMessageById(msgId2).get().edit(embed);
         } catch (InterruptedException | ExecutionException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

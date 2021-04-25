@@ -43,7 +43,6 @@ public class CommandHandler implements MessageCreateListener {
                 try {
                     this.command.getExecutor().execute(data, this.commands);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }

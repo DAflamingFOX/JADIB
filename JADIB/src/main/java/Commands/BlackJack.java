@@ -84,7 +84,6 @@ public class BlackJack implements CommandExecutor {
 					}
 				}
 			} catch (InterruptedException | ExecutionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -144,7 +143,6 @@ public class BlackJack implements CommandExecutor {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
