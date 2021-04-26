@@ -19,6 +19,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+### Host your own
+Feel free to host on your own, simply make a bot application in the discord dev portal, then put your bots token in secret.java; then just put it in the src folder.
+
 ### Contributions
 
 All merge requests are welcome; DM me on [discord](https://discord.gg/JFuBmKPAsU) if you would like to do so.
