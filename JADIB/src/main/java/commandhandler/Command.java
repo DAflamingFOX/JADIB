@@ -10,14 +10,16 @@ public class Command {
     private final String associatedPrefix;
     private final String description;
     private final String usage;
+    private final String[] aliases;
 
-    public Command(final String command, final CommandExecutor executor, DiscordApi api, String associatedPrefix, String description, String usage) {
+    public Command(final String command, final String[] aliases, final CommandExecutor executor, final DiscordApi api, final String associatedPrefix, final String description, final String usage) {
         this.api = api;
         this.command = command;
         this.executor = executor;
         this.associatedPrefix = associatedPrefix;
         this.description = description;
         this.usage = usage;
+        this.aliases = aliases;
     }
 
 
@@ -44,4 +46,6 @@ public class Command {
     public final String getUsage() {
         return this.usage;
     }
+
+    public final String[] getAliases() { return this.aliases; }
 }
