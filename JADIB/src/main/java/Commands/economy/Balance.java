@@ -11,7 +11,7 @@ public class Balance implements CommandExecutor {
 
     @Override
     public void execute(CommandData data, ArrayList<Command> commands) throws IOException {
-                
+        Economy.createDatabase("economy.db");
     }
     
 }

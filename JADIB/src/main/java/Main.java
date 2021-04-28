@@ -4,6 +4,7 @@ import org.javacord.api.entity.activity.ActivityType;
 
 import commandhandler.CommandBuilder;
 import commands.*;
+import commands.economy.Balance;
 import commands.util.JADIBUtil;
 
 //import 
@@ -41,6 +42,7 @@ public class Main {
         builder.addCommand("avatar", new String[] {"pfp", "picture"}, new Avatar(), "Show the avatar of a mentioned user.", JADIBUtil.prefix + "avatar [@user]");
         builder.addCommand("quote", new String[] {"inspiration"}, new Quote(), "provide an insperational quote.", JADIBUtil.prefix + "quote");
         builder.addCommand("blackjack", new String[] {"bj"}, new BlackJack(), "Play a game of blackjack against the bot.", JADIBUtil.prefix + "blackjack");
+        builder.addCommand("balance", null, new Balance(), "Check your balance.", JADIBUtil.prefix + "balance");
 
         // COMMAND BUILD
         builder.build();

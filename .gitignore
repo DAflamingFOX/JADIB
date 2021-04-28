@@ -1,8 +1,9 @@
 
-JADIB/src/main/java/Secret.java
-JADIB/target/classes
 .vscode/
-resrc/
-JADIB/src/main/java/CommandHandler.java
+JADIB/src/main/java/Secret.java
+JADIB/src/main/java/commands/economy/*.db
+JADIB/target/classes
 JADIB/target/classes
 JADIB/target/classes/Main.class
+
+
