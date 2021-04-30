@@ -23,11 +23,8 @@ public class Main {
         System.out.println("\\==\\, `-' /\\==\\ _.\\=\\.-'|==|-,   _`//==/. /==|   -   /  ");
         System.out.println(" `--`----'  `--`        `-.`.____.' `--`-``-._`.___,'   \n\n");
 
-        // SETUP
-        Secret secret = new Secret();
-
         // LOGIN
-        DiscordApi api = new DiscordApiBuilder().setToken(secret.getToken()).login().join();
+        DiscordApi api = new DiscordApiBuilder().setToken(Secret.getToken()).login().join();
         api.updateActivity(ActivityType.PLAYING, "Getting Coffee, brb"); // activity for waiting on setup
         System.out.println("Bot Online!");
 
