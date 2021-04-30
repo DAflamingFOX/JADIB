@@ -20,7 +20,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 ### Host your own
-Feel free to host on your own, simply make a bot application in the discord dev portal, then put your bots token in secret.java; then just put it in the src folder.
+If you would like to host your own, please check INFO.md for more info.
 
 ### Contributions
 
