@@ -54,8 +54,9 @@
     <dependency>
         <groupId>org.discordbots</groupId>
         <artifactId>DBL-Java-Library</artifactId>
-        <version>VERSION</version>
+        <version>2.0.1</version>
     </dependency>
+
   </dependencies>
 
   <build>
