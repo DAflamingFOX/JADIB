@@ -4,7 +4,6 @@ import org.javacord.api.entity.activity.ActivityType;
 
 import commandhandler.CommandBuilder;
 import commands.*;
-import commands.economy.Balance;
 import commands.util.JADIBUtil;
 
 //import 
