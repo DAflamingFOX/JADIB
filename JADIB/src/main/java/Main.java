@@ -51,19 +51,19 @@ public class Main {
             int choice = (int) Math.round(Math.random() * 3 + 1);
             switch (choice) {
             case 1: {
-                api.updateActivity(ActivityType.WATCHING, "over " + api.getServers().size() + " servers!");
+                api.updateActivity(ActivityType.WATCHING, JADIBUtil.prefix + "over " + api.getServers().size() + " servers!");
                 break;
             }
             case 2: {
-                api.updateActivity(ActivityType.WATCHING, "Netflix and chill.");
+                api.updateActivity(ActivityType.WATCHING, JADIBUtil.prefix + "Netflix and chill.");
                 break;
             }
             case 3: {
-                api.updateActivity(ActivityType.PLAYING, "ungrills your cheese.");
+                api.updateActivity(ActivityType.PLAYING, JADIBUtil.prefix + "ungrills your cheese.");
                 break;
             }
             case 4: {
-                api.updateActivity(ActivityType.PLAYING, "It's pronounced jah-dib.");
+                api.updateActivity(ActivityType.PLAYING, JADIBUtil.prefix + "It's pronounced jah-dib.");
                 break;
             }
             case 5: {
