@@ -17,13 +17,23 @@
     <maven.compiler.target>11</maven.compiler.target>
   </properties>
 
+  <repositories>
+  <!-- used for toppgg api wrapper, dunno what it does or if its needed. -->
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+
   <dependencies>
+  <!-- Javacord api wrapper -->
     <dependency>
       <groupId>org.javacord</groupId>
       <artifactId>javacord</artifactId>
       <version>3.3.0</version>
       <type>pom</type>
     </dependency>
+    <!-- Log4J so it would stop yelling about it. -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
@@ -34,17 +44,23 @@
       <artifactId>log4j-core</artifactId>
       <version>2.14.1</version>
     </dependency>
-  <!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
+    <!-- sqlite JDBC driver -->
     <dependency>
       <groupId>org.xerial</groupId>
       <artifactId>sqlite-jdbc</artifactId>
       <version>3.34.0</version>
     </dependency>
-
+    <!-- top.gg api wrapper-->
+    <dependency>
+        <groupId>org.discordbots</groupId>
+        <artifactId>DBL-Java-Library</artifactId>
+        <version>VERSION</version>
+    </dependency>
   </dependencies>
 
   <build>
     <plugins>
+    <!-- Shade plugin so that a jar can be built and ran. -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -75,6 +91,7 @@
           </execution>
         </executions>
       </plugin>
+
     </plugins>
   </build>
 </project>
