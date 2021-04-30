@@ -1,9 +1,10 @@
 
 .vscode/
+JADIB/.classpath/
+JADIB/.factorypath/
+JADIB/.project/
+JADIB/target/classes/
 JADIB/src/main/java/Secret.java
 JADIB/src/main/java/commands/economy/*.db
-JADIB/target/classes
-JADIB/target/classes
-JADIB/target/classes/Main.class
 
 
