@@ -8,4 +8,12 @@ public class CommandDatabaseBackend {
      * ! methods; so instead they will go here.
      * TODO: This is currently unused but will be fixed to work later
      */
+
+     //* Balance Methods
+
+     //* Beg Methods
+
+     //* Vote Methods
+
+     //* 
 }

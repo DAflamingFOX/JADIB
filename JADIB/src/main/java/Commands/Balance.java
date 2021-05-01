@@ -25,5 +25,6 @@ public class Balance implements CommandExecutor {
         embed.setDescription("$" + Database.getBalance(data.getMessageAuthor().getIdAsString()));
         embed.addField("Want more cash?", "Use j-beg, or gamble for more; your can also\n click [here](https://top.gg/bot/798780702463885322/vote) and vote to get $1,000");
         data.getChannel().sendMessage(embed);
+        
     }
 }
