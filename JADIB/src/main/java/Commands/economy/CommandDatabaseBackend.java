@@ -1,6 +1,7 @@
 package commands.economy;
 
 public class CommandDatabaseBackend {
+    // * Please run DatabaseFirstTimeSetup.java before attempting to run the bot!
     /**
      * ! This class will be used for command access to databases,
      * ! rather than Database.java, the issues is that there are quite

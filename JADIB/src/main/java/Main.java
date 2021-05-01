@@ -1,12 +1,11 @@
+import org.discordbots.api.client.DiscordBotListAPI;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
 
 import commandhandler.CommandBuilder;
 import commands.*;
-import commands.util.JADIBUtil;
-
-//import 
+import commands.util.JADIBUtil; 
 
 public class Main {
 
@@ -39,9 +38,13 @@ public class Main {
         builder.addCommand("quote", new String[] {"inspiration"}, new Quote(), "provide an insperational quote.", JADIBUtil.prefix + "quote");
         builder.addCommand("blackjack", new String[] {"bj"}, new BlackJack(), "Play a game of blackjack against the bot.", JADIBUtil.prefix + "blackjack");
         builder.addCommand("balance", null, new Balance(), "Check your balance.", JADIBUtil.prefix + "balance");
+        builder.addCommand("vote", null, new Vote(), "Recieve cash-money for voting!", JADIBUtil.prefix + "vote");
 
         // COMMAND BUILD
         builder.build();
+
+        // DBL API
+        getDblApi().setStats(api.getServers().size());
 
         // STATUS LOOPER
         do {
@@ -73,4 +76,8 @@ public class Main {
 
     }
 
+    public static DiscordBotListAPI getDblApi() {
+        DiscordBotListAPI dblapi = new DiscordBotListAPI.Builder().token(Secret.getDblToken()).botId("798780702463885322").build();
+        return dblapi;
+    }
 }

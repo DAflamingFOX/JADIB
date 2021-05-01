@@ -20,7 +20,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 ### Host your own
-If you would like to host your own, please check INFO.md for more info.
+If you would like to host your own, you can contact me on discord [check my README](https://github.com/DAflamingFOX/) and I can help you out; the bot is not designed to be easily hostable if you dont know what your doing, but it can be done.
 
 ### Contributions
 

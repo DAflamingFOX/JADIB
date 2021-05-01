@@ -9,6 +9,7 @@ import java.sql.Statement;
 public class Database {
     final static String url = "jdbc:sqlite:JADIB/src/main/java/commands/economy/";
 
+    // * each function should check first that its able to, for instance connect, should make sure that there is a db to connect to, and if there isnt then make one.
     /**
      * 
      * @param db the database name ending in .db to connect to
