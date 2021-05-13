@@ -6,5 +6,5 @@ JADIB/.project
 JADIB/.settings/
 JADIB/target/
 JADIB/src/main/java/commands/util/Secret.java
-JADIB/src/main/java/commands/economy/*.db
+JADIB/src/main/java/commands/economy/*.db*
 JADIB/src/main/java/commands/economy/-- SQLite.sql
