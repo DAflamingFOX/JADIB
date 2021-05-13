@@ -1,11 +1,7 @@
-import java.io.ObjectInputFilter.Status;
-import java.util.ArrayList;
-
+package src;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
-import org.javacord.api.entity.message.Message;
-import org.javacord.api.listener.message.MessageCreateListener;
 
 import commandhandler.CommandBuilder;
 import commands.Avatar;
@@ -15,17 +11,18 @@ import commands.Help;
 import commands.Links;
 import commands.Ping;
 import commands.Quote;
-import commands.Vote;
 import commands.util.JADIBUtil;
-import commands.util.Secret; 
-
-import threads.*;
+import commands.util.Secret;
+import threads.NewUserProccessingThread;
+import threads.StatusLoopThread;
+import threads.VoteCheckThread;
 
 public class Main {
-
+    private static DiscordApi api;
     public static void main(String[] args) throws InterruptedException {
 
         // discord api login
+        buildApi(Secret.getToken());
         DiscordApi api = new DiscordApiBuilder().setToken(Secret.getToken()).login().join();
         api.updateActivity(ActivityType.PLAYING, "Getting Coffee, brb"); // activity for waiting on setup
         System.out.println("Bot Online!");
@@ -49,6 +46,18 @@ public class Main {
         new StatusLoopThread().start();
         new VoteCheckThread().start();
 
+    }
+
+    private static void buildApi(String token) {
+        api = new DiscordApiBuilder().setToken(token).login().join();
+        System.out.println("Bot Online:\n" +
+                           "Username:\t" + api.getYourself().getDiscriminatedName() + "," +
+                           "Shards:\t" + api.getTotalShards() + "," +
+                           "Servers:\t" + api.getServers().size());
+    }
+
+    public static DiscordApi getApi() {
+        return api;
     }
 
 }
