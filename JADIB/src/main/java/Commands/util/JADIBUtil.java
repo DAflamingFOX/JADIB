@@ -2,7 +2,10 @@ package commands.util;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import org.discordbots.api.client.DiscordBotListAPI;
+import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
@@ -35,5 +38,24 @@ public class JADIBUtil {
         }
         return embed;
     }
+
+    //Todo: update all uses of embeds to use this method to clean up alot and have uniform embeds.
+    public static EmbedBuilder createEmbed(DiscordApi api) {
+        EmbedBuilder embed = new EmbedBuilder();
+        embed.setColor(color);
+        embed.setTimestampToNow();
+        try {
+            embed.setFooter(api.getYourself().getName() + "; created by: " + api.getUserById("591484957818617867").get().getName() + " with tlc ❤️", api.getYourself().getAvatar());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return embed;
+    }
+
+    public static DiscordBotListAPI getDblApi() {
+        DiscordBotListAPI dblapi = new DiscordBotListAPI.Builder().token(Secret.getDblToken()).botId("798780702463885322").build();
+        return dblapi;
+    }
+
 }
 
