@@ -11,21 +11,19 @@ import commands.Help;
 import commands.Links;
 import commands.Ping;
 import commands.Quote;
-import commands.util.JADIBUtil;
-import commands.util.Secret;
 import threads.NewUserProccessingThread;
 import threads.StatusLoopThread;
 import threads.VoteCheckThread;
+import utility.JADIBUtil;
+import utility.Secret;
 
 public class Main {
     private static DiscordApi api;
     public static void main(String[] args) throws InterruptedException {
+        System.out.println("\nStarting.");
 
         // discord api login
         buildApi(Secret.getToken());
-        DiscordApi api = new DiscordApiBuilder().setToken(Secret.getToken()).login().join();
-        api.updateActivity(ActivityType.PLAYING, "Getting Coffee, brb"); // activity for waiting on setup
-        System.out.println("Bot Online!");
 
         // command handler
         CommandBuilder builder = new CommandBuilder(JADIBUtil.prefix, api);
@@ -50,9 +48,9 @@ public class Main {
 
     private static void buildApi(String token) {
         api = new DiscordApiBuilder().setToken(token).login().join();
-        System.out.println("Bot Online:\n" +
-                           "Username:\t" + api.getYourself().getDiscriminatedName() + "," +
-                           "Shards:\t" + api.getTotalShards() + "," +
+        System.out.println("\nBot Online:\n" +
+                           "Username:\t" + api.getYourself().getDiscriminatedName() + ",\n" +
+                           "Shards:\t\t" + api.getTotalShards() + ",\n" +
                            "Servers:\t" + api.getServers().size());
     }
 

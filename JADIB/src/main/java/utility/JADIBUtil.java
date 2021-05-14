@@ -1,4 +1,4 @@
-package commands.util;
+package utility;
 
 import java.awt.Color;
 import java.util.List;

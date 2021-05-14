@@ -10,7 +10,7 @@ import org.javacord.api.entity.user.User;
 import commandhandler.Command;
 import commandhandler.CommandData;
 import commandhandler.CommandExecutor;
-import commands.util.JADIBUtil;
+import utility.JADIBUtil;
 
 public class Avatar implements CommandExecutor {
 

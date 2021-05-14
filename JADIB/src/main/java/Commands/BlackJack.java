@@ -14,7 +14,7 @@ import commandhandler.CommandData;
 import commandhandler.CommandExecutor;
 import commands.cards.Card;
 import commands.cards.Deck;
-import commands.util.JADIBUtil;
+import utility.JADIBUtil;
 
 public class BlackJack implements CommandExecutor {
 

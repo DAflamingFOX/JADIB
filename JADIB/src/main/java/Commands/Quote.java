@@ -10,7 +10,7 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import commandhandler.Command;
 import commandhandler.CommandData;
 import commandhandler.CommandExecutor;
-import commands.util.JADIBUtil;
+import utility.JADIBUtil;
 
 public class Quote implements CommandExecutor {
 

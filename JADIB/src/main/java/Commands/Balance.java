@@ -13,7 +13,7 @@ import commandhandler.Command;
 import commandhandler.CommandData;
 import commandhandler.CommandExecutor;
 import commands.economy.CommandDatabaseBackend;
-import commands.util.JADIBUtil;
+import utility.JADIBUtil;
 
 public class Balance implements CommandExecutor {
 

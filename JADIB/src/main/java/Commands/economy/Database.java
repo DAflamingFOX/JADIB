@@ -81,6 +81,7 @@ public class Database {
             Connection conn = connect(db);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
+            conn.close();
             return rs;
 
         } catch (SQLException e) {
