@@ -1,15 +1,14 @@
 package commands;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.javacord.api.entity.Icon;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
 
-import commandhandler.Command;
-import commandhandler.CommandData;
-import commandhandler.CommandExecutor;
+import commands.commandhandler.Command;
+import commands.commandhandler.CommandData;
+import commands.commandhandler.CommandExecutor;
 import utility.JADIBUtil;
 
 public class Avatar implements CommandExecutor {
