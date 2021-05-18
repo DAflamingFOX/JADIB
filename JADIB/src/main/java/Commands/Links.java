@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 
-import commandhandler.Command;
-import commandhandler.CommandData;
-import commandhandler.CommandExecutor;
+import commands.commandhandler.Command;
+import commands.commandhandler.CommandData;
+import commands.commandhandler.CommandExecutor;
 
 public class Links implements CommandExecutor{
 

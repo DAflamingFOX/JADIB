@@ -1,4 +1,4 @@
-package commandhandler;
+package commands.commandhandlerndhandler;
 
 import org.javacord.api.DiscordApi;
 

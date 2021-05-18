@@ -1,8 +1,10 @@
 package commands;
 
 import java.util.ArrayList;
-import commandhandler.*;
+
 import org.javacord.api.entity.message.Message;
+
+import commands.commandhandler.*;
 
 public class Ping implements CommandExecutor {
 

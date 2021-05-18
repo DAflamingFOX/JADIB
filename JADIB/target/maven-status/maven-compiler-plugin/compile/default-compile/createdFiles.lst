@@ -1,9 +1,9 @@
 commandhandler/DefaultHelpCommandExecutor.class
 commands/Ping.class
 commands/cards/Deck.class
-threads/VoteCheckThread.class
-commands/util/Secret.class
+utility/JADIBUtil.class
 commands/Help.class
+utility/Secret.class
 commands/BlackJack.class
 commands/economy/Database.class
 threads/NewUserProccessingThread.class
@@ -12,6 +12,7 @@ commandhandler/CommandData.class
 commandhandler/CommandPermissions.class
 commands/Balance.class
 threads/StatusLoopThread.class
+threads/DBLApiThread.class
 commandhandler/CommandHandler.class
 commands/economy/CommandDatabaseBackend.class
 commands/Avatar.class
@@ -19,7 +20,6 @@ src/Main.class
 commandhandler/CommandExecutor.class
 commands/Quote.class
 commands/Links.class
-commands/util/JADIBUtil.class
 commands/cards/Card.class
 commandhandler/Command.class
 commandhandler/CommandMessage.class

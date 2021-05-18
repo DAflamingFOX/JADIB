@@ -1,4 +1,4 @@
-package commandhandler;
+package commands.commandhandlerndhandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;

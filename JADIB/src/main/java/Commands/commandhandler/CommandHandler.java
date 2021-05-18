@@ -1,4 +1,4 @@
-package commandhandler;
+package commands.commandhandlerndhandler;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
