@@ -1,9 +1,8 @@
 package src;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
-import org.javacord.api.entity.activity.ActivityType;
+import org.javacord.api.entity.intent.Intent;
 
-import commandhandler.CommandBuilder;
 import commands.Avatar;
 import commands.Balance;
 import commands.BlackJack;
@@ -11,9 +10,10 @@ import commands.Help;
 import commands.Links;
 import commands.Ping;
 import commands.Quote;
+import commands.commandhandler.CommandBuilder;
+import threads.DBLApiThread;
 import threads.NewUserProccessingThread;
 import threads.StatusLoopThread;
-import threads.VoteCheckThread;
 import utility.JADIBUtil;
 import utility.Secret;
 
@@ -42,16 +42,18 @@ public class Main {
         // start other threads
         new NewUserProccessingThread().start();
         new StatusLoopThread().start();
-        new VoteCheckThread().start();
+        new DBLApiThread().start();
 
     }
 
     private static void buildApi(String token) {
-        api = new DiscordApiBuilder().setToken(token).login().join();
+        System.out.println("Building api.");
+        api = new DiscordApiBuilder().setToken(token).setAllIntentsExcept(Intent.GUILD_PRESENCES).login().join();
         System.out.println("\nBot Online:\n" +
-                           "Username:\t" + api.getYourself().getDiscriminatedName() + ",\n" +
-                           "Shards:\t\t" + api.getTotalShards() + ",\n" +
-                           "Servers:\t" + api.getServers().size());
+                           "Username:\t" + api.getYourself().getDiscriminatedName() +
+                           "\nShards:\t\t" + api.getTotalShards() +
+                           "\nServers:\t" + api.getServers().size() +
+                           "\nMembers:\t" + api.getCachedUsers().size());
     }
 
     public static DiscordApi getApi() {
