@@ -1,10 +1,11 @@
 
 .vscode/
+.lst
 JADIB/.classpath
 JADIB/.factorypath
 JADIB/.project
 JADIB/.settings/
-JADIB/target/
 JADIB/src/main/java/utility/Secret.java
 JADIB/src/main/java/commands/economy/*.db*
 JADIB/src/main/java/commands/economy/-- SQLite.sql
+JADIB/target/**
