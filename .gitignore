@@ -8,4 +8,4 @@ JADIB/.settings/
 JADIB/target/**
 JADIB/src/main/java/utility/Secret.java
 JADIB/src/main/java/economy/economy.db
-JADIB/src/main/java/commands/economy/-- SQLite.sql
+JADIB/src/main/java/economy/-- SQLite.sql
