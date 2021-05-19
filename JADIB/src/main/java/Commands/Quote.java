@@ -24,8 +24,6 @@ public class Quote implements CommandExecutor {
 
         sendMessage(data, quote, author);
 
-        //
-
     }
 
     private void sendMessage(CommandData data, String quote, String author) {
@@ -69,7 +67,7 @@ public class Quote implements CommandExecutor {
         }
 
         sc.close();
-        
+
         return result;
     }
 }
