@@ -10,11 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Database {
-    final static String url = "jdbc:sqlite:JADIB/src/main/java/commands/economy/";
+    final static String url = "jdbc:sqlite:JADIB/src/main/java/economy/economy.db";
 
     /**
      * @param db the database name ending in .db to connect to
-     * if there is no db file, it will create one.
      * @return conn the SQLite db connection
      */
     public static Connection connect(String db) {
@@ -32,7 +31,7 @@ public class Database {
     }
 
     /**
-     * @param db the name of db to create
+     * @param db the database name ending in .db to create
      */
     private static void createDb(String db) {
         FileWriter file;
@@ -60,6 +59,11 @@ public class Database {
         
     }
 
+    /**
+     * 
+     * @param sql the sqlite statement to use
+     * @param db the database name ending in .db to connect to
+     */
     public static void executeUpdateStatement(String sql, String db) {
         try {
             Connection conn = connect(db);

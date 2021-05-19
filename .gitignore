@@ -5,7 +5,7 @@ JADIB/.classpath
 JADIB/.factorypath
 JADIB/.project
 JADIB/.settings/
-JADIB/src/main/java/utility/Secret.java
-JADIB/src/main/java/commands/economy/*.db*
-JADIB/src/main/java/commands/economy/-- SQLite.sql
 JADIB/target/**
+JADIB/src/main/java/utility/Secret.java
+JADIB/src/main/java/economy/economy.db
+JADIB/src/main/java/commands/economy/-- SQLite.sql
