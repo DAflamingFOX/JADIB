@@ -7,9 +7,9 @@ import java.util.Scanner;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 
-import commands.commandhandler.Command;
-import commands.commandhandler.CommandData;
-import commands.commandhandler.CommandExecutor;
+import commandhandler.Command;
+import commandhandler.CommandData;
+import commandhandler.CommandExecutor;
 import utility.JADIBUtil;
 
 public class Quote implements CommandExecutor {
@@ -68,6 +68,8 @@ public class Quote implements CommandExecutor {
             result = sc.nextLine();
         }
 
+        sc.close();
+        
         return result;
     }
 }

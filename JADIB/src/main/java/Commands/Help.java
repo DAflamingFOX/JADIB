@@ -3,7 +3,7 @@ package commands;
 import java.util.ArrayList;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 
-import commands.commandhandler.*;
+import commandhandler.*;
 import utility.JADIBUtil;
 
 

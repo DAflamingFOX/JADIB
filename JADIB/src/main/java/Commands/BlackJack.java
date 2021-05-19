@@ -9,11 +9,11 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
+import commandhandler.Command;
+import commandhandler.CommandData;
+import commandhandler.CommandExecutor;
 import commands.cards.Card;
 import commands.cards.Deck;
-import commands.commandhandler.Command;
-import commands.commandhandler.CommandData;
-import commands.commandhandler.CommandExecutor;
 import utility.JADIBUtil;
 
 public class BlackJack implements CommandExecutor {

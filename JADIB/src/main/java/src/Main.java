@@ -3,6 +3,7 @@ import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.intent.Intent;
 
+import commandhandler.CommandBuilder;
 import commands.Avatar;
 import commands.Balance;
 import commands.BlackJack;
@@ -10,7 +11,6 @@ import commands.Help;
 import commands.Links;
 import commands.Ping;
 import commands.Quote;
-import commands.commandhandler.CommandBuilder;
 import threads.DBLApiThread;
 import threads.NewUserProccessingThread;
 import threads.StatusLoopThread;

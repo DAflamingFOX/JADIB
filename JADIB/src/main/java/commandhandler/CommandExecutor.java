@@ -1,4 +1,4 @@
-package commands.commandhandlerndhandler;
+package commandhandler;
 
 import java.io.IOException;
 import java.util.ArrayList;

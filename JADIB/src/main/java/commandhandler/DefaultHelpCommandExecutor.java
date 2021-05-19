@@ -1,4 +1,4 @@
-package commands.commandhandlerndhandler;
+package commandhandler;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 
