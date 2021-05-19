@@ -1,17 +1,11 @@
-package commands.economy;
+package utility;
 
 import java.sql.*;
 
-public class CommandDatabaseBackend {
-    /**
-     * ! This class will be used for command access to databases,
-     * ! rather than Database.java, the issues is that there are quite
-     * ! alot of methods that I would not like to mix in with the SQLite
-     * ! methods; so instead they will go here.
-     * TODO: This is currently unused but will be fixed to work later
-     */
+public class DatabaseAccess {
 
      //* General Methods
+
      /**
       * 
       * @param user_id the user id that will be added to the table
@@ -24,13 +18,13 @@ public class CommandDatabaseBackend {
             Connection conn = Database.connect(database);
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(updateStmt);
+            stmt.close();
+            conn.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
      }
-
-     //* Balance Methods
+     
      public static String getBalance(String userId) {
         String getBalanceQuery = "SELECT balance FROM master WHERE user_id == "+userId+";";
         String database = "economy.db";
@@ -40,6 +34,7 @@ public class CommandDatabaseBackend {
 
             if (rs.next()) {
                 String balance = rs.getString("balance");
+                rs.close();
                 return balance;
             } else {
                 addUser(userId);
@@ -73,7 +68,6 @@ public class CommandDatabaseBackend {
 
 	public static void setLastVote(String user_id, long time) {
         String updateStmt = "INSERT INTO master(lastVote) VALUES("+time+") WHERE user_id == "+user_id;
-        
         Database.executeUpdateStatement(updateStmt, "economy.db");
 	}
 
