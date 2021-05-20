@@ -6,6 +6,8 @@ import org.discordbots.api.client.DiscordBotListAPI;
 import org.javacord.api.entity.user.User;
 
 import src.Main;
+import utility.Database;
+import utility.DatabaseAccess;
 import utility.Secret;
 
 public class DBLApiThread extends Thread{
@@ -40,8 +42,15 @@ public class DBLApiThread extends Thread{
                     api.hasVoted(user.getIdAsString()).whenComplete((hasVoted, e) -> {
                         
                         if(hasVoted){
-                            // TODO add user giving money if also last vote before 12 hours
-                            
+                            if(!DatabaseAccess.isUser(user.getIdAsString())) {
+                                DatabaseAccess.addUser(user.getIdAsString());
+                            }
+
+                            // if last vote time is less than greater than 12 hours
+                            if ((System.currentTimeMillis() - DatabaseAccess.getLastVote(user.getIdAsString()) > 12 * 1000 * 60 * 60)) {
+                                DatabaseAccess.addToBalance(1000, user.getIdAsString(), "economy.db");
+                                Database.executeUpdateStatement("UPDATE master SET last_vote = "+System.currentTimeMillis()+"WHERE user_id = "+user.getIdAsString()+";", "economy.db");
+                            }                           
                         }
                     });
                 }
