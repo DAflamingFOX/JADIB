@@ -1,78 +1,103 @@
 package utility;
 
 import java.sql.*;
-
+import utility.Database;
 public class DatabaseAccess {
 
-     //* General Methods
+    /**
+     * 
+     * @param user_id the user id that will be added to the table
+     */
+    public static void addUser(String user_id) {
+    String updateStmt = "INSERT INTO master(user_id, balance) VALUES("+user_id+", 0);";
+    String database = "economy.db";
 
-     /**
-      * 
-      * @param user_id the user id that will be added to the table
-      */
-     public static void addUser(String user_id) {
-        String updateStmt = "INSERT INTO master(user_id, balance) VALUES("+user_id+", 0);";
+    try {
+        Connection conn = Database.connect(database);
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate(updateStmt);
+        stmt.close();
+        conn.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    }
+
+    public static boolean isUser(String user_id) {
+        String query = "SELECT * FROM master WHERE user_id == "+user_id+";";
         String database = "economy.db";
 
         try {
-            Connection conn = Database.connect(database);
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(updateStmt);
-            stmt.close();
-            conn.close();
+            ResultSet rs = Database.sqlQuery(query, database);
+
+            if (rs.next()) {
+                rs.close();
+                return true;
+            } else {
+                rs.close();
+                return false;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-     }
-     
-     public static String getBalance(String userId) {
-        String getBalanceQuery = "SELECT balance FROM master WHERE user_id == "+userId+";";
+
+        return false;
+    }
+
+    public static int getBalance(String user_id) {
+        String getBalanceQuery = "SELECT balance FROM master WHERE user_id == "+user_id+";";
         String database = "economy.db";
         
         try {
             ResultSet rs = Database.sqlQuery(getBalanceQuery, database);
 
-            if (rs.next()) {
-                String balance = rs.getString("balance");
+
+            if (!isUser(user_id)) {
+                addUser(user_id);
+            }
+
+            
+                int balance = rs.getInt("balance");
                 rs.close();
                 return balance;
-            } else {
-                addUser(userId);
-                return getBalance(userId);
-            }
+            
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         
-        return "ERR!";
+        return -1;
     }
 
-    //* Vote Methods
     public static long getLastVote(String user_id) {
-        String queryStmt = "SELECT voteTime FROM master WHERE user_id == "+user_id;
+        String queryStmt = "SELECT last_vote FROM master WHERE user_id == "+user_id;
         String database = "economy.db";
-        ResultSet rs = Database.sqlQuery(queryStmt, database);
 
         try {
-            if (!rs.next()){ // checks to see if any value returns, will be empty if user is not in db
+            
+            // check for user
+            if (!isUser(user_id)){
                 addUser(user_id);
             }
-            return rs.getLong("lastVote");
+
+            ResultSet rs = Database.sqlQuery(queryStmt, database);
+            long last_vote = rs.getLong("last_vote");
+            rs.close();
+            return last_vote;
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return 0; // should never return this but it would work anyway.
+        return System.currentTimeMillis();
     }
 
-	public static void setLastVote(String user_id, long time) {
-        String updateStmt = "INSERT INTO master(lastVote) VALUES("+time+") WHERE user_id == "+user_id;
-        Database.executeUpdateStatement(updateStmt, "economy.db");
-	}
+    public static void addToBalance(int amount, String user_id, String db) {
+        int newTotal = (getBalance(user_id) + amount);
+        String addQuery = "UPDATE master SET balance = "+newTotal+" WHERE user_id = "+user_id+";";
+        Database.executeUpdateStatement(addQuery, db);
+        
+    }
 
-    //* Beg Methods
-
-
-    //* 
 }

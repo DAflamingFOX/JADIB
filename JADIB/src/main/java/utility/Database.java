@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Database {
-    final static String url = "jdbc:sqlite:JADIB/src/main/java/economy/economy.db";
+    final static String url = "jdbc:sqlite:JADIB/src/main/java/economy/";
 
     /**
      * @param db the database name ending in .db to connect to
@@ -43,6 +43,7 @@ public class Database {
             e.printStackTrace();
         }
     }
+
     /**
      * 
      * @param sql the sqlite statement to use

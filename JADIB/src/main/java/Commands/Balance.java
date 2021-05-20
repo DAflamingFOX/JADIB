@@ -9,7 +9,7 @@ import commandhandler.Command;
 import commandhandler.CommandData;
 import commandhandler.CommandExecutor;
 import utility.DatabaseAccess;
-import utility.JADIBUtil;
+import utility.*;
 
 public class Balance implements CommandExecutor {
 
