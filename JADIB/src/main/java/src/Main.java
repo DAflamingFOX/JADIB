@@ -6,13 +6,14 @@ import org.javacord.api.entity.intent.Intent;
 import commandhandler.CommandBuilder;
 import commands.Avatar;
 import commands.Balance;
+import commands.Beg;
 import commands.BlackJack;
 import commands.Help;
 import commands.Links;
 import commands.Ping;
 import commands.Quote;
 import threads.DBLApiThread;
-import threads.NewUserProccessingThread;
+import threads.AddUserToDatabaseThread;
 import threads.StatusLoopThread;
 import utility.JADIBUtil;
 import utility.Secret;
@@ -31,16 +32,17 @@ public class Main {
         builder.addCommand("ping", new String[] {"beep"}, new Ping(), "Shows the current ping of the bot.", JADIBUtil.prefix + "ping");
         builder.addCommand("links", null, new Links(), "Show all the links for the bot.", JADIBUtil.prefix + "links");
         builder.addCommand("avatar", new String[] {"pfp", "picture"}, new Avatar(), "Show the avatar of a mentioned user.", JADIBUtil.prefix + "avatar [@user]");
-        builder.addCommand("quote", new String[] {"inspiration"}, new Quote(), "provide an insperational quote.", JADIBUtil.prefix + "quote");
+        builder.addCommand("quote", new String[] {"inspiration"}, new Quote(), "provide an inspirational quote.", JADIBUtil.prefix + "quote");
         builder.addCommand("blackjack", new String[] {"bj"}, new BlackJack(), "Play a game of blackjack against the bot.", JADIBUtil.prefix + "blackjack");
         builder.addCommand("balance", null, new Balance(), "Check your balance.", JADIBUtil.prefix + "balance");
+        builder.addCommand("beg", null, new Beg(), "get a random amount of cash-money", JADIBUtil.prefix + "beg");
         builder.build();
 
         // dbl api
         JADIBUtil.getDblApi().setStats(api.getServers().size());
 
         // start other threads
-        new NewUserProccessingThread().start();
+        new AddUserToDatabaseThread().start();
         new StatusLoopThread().start();
         new DBLApiThread().start();
 
